@@ -1,0 +1,7 @@
+mysql
+.DS_Store
+.idea
+
+# Project exclude paths
+/src/storage/app/
+/src/storage/framework/
