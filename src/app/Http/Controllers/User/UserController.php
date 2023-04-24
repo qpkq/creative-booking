@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequests\StoreRequest;
+use App\Http\Requests\Profile\User\UpdateRequest;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -26,11 +24,11 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      *
-     * @param StoreRequest $request
+     * @param UpdateRequest $request
      * @param User $user
      * @return JsonResponse
      */
-    public function update(StoreRequest $request, User $user): JsonResponse
+    public function update(UpdateRequest $request, User $user): JsonResponse
     {
         $data = $request->validated();
 

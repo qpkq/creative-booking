@@ -16,17 +16,11 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->unsignedBigInteger('role_id')->default(1);
+            $table->unsignedSmallInteger('role_id')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-
-            // IDX
-            $table->index('role_id', 'user_role_idx');
-
-            // FK
-            $table->foreign('role_id', 'user_category_fk')->on('roles')->references('id');
         });
     }
 

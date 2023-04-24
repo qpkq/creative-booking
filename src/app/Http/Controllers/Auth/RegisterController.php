@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -19,7 +20,7 @@ class RegisterController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $fields = $request->validate([
+        $data = $request->validate([
             'first_name'    => 'required|string',
             'last_name'     => 'required|string',
             'email'         => 'required|string|unique:users,email',
@@ -27,10 +28,10 @@ class RegisterController extends Controller
         ]);
 
         $user = User::create([
-            'first_name' => $fields['first_name'],
-            'last_name' => $fields['last_name'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
