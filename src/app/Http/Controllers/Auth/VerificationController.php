@@ -10,25 +10,27 @@ use Illuminate\Http\Request;
 class VerificationController extends Controller
 {
     /**
-     * User email verification.
+     * Sending a verification notification to the user.
      *
      * @param Request $request
+     * @param $id
+     * @param $hash
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request, $id, $hash): JsonResponse
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::findOrFail($id);
 
-        if (!$user) {
-            return response()->json(['message' => 'Пользователь с таким email не найден'], 404);
+        if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+            return response()->json(['message' => 'Неверный хэш для верификации email'], 400);
         }
 
         if ($user->hasVerifiedEmail()) {
             return response()->json(['message' => 'Email уже подтвержден'], 200);
         }
 
-        $user->sendEmailVerificationNotification();
+        $user->markEmailAsVerified();
 
-        return response()->json(['message' => 'Письмо для подтверждения email отправлено'], 200);
+        return response()->json(['message' => 'Email подтвержден'], 200);
     }
 }
