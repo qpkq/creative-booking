@@ -16,9 +16,9 @@ class RegisterController extends Controller
      * User registration.
      *
      * @param Request $request
-     * @return Application|ResponseFactory|\Illuminate\Foundation\Application|Response
+     * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $data = $request->validate([
             'first_name'    => 'required|string',
@@ -41,6 +41,8 @@ class RegisterController extends Controller
             'token' => $token
         ];
 
-        return response($response, 201);
+        return new Response(
+            $response, 201
+        );
     }
 }

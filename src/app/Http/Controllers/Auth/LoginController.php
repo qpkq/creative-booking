@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -13,9 +14,9 @@ class LoginController extends Controller
      * User authorization.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+     * @return Response
      */
-    public function __invoke(Request $request) {
+    public function __invoke(Request $request): Response {
         $fields = $request->validate([
             'email'         => 'required|string',
             'password'      => 'required|string'
@@ -26,7 +27,7 @@ class LoginController extends Controller
 
         // Check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
-            return response([
+            return new Response([
                 'message' => 'Bad data'
             ], 401);
         }
@@ -38,6 +39,8 @@ class LoginController extends Controller
             'token'     => $token
         ];
 
-        return response($response, 201);
+        return new Response(
+            $response, 201
+        );
     }
 }

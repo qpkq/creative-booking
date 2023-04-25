@@ -22,9 +22,9 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        $users = User::paginate(20);
-
-        return response()->json($users, 206);
+        return new JsonResponse(
+            User::all(), 200
+        );
     }
 
     /**
@@ -36,12 +36,11 @@ class UserController extends Controller
     public function store(StoreRequest $request): JsonResponse
     {
         $data = $request->validated();
-
         $data['password'] = Hash::make($data['password']);
 
-        $user = User::firstOrCreate($data);
-
-        return response()->json($user,201);
+        return new JsonResponse(
+            User::firstOrCreate($data),201
+        );
     }
 
     /**
@@ -52,7 +51,9 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return response()->json($user, 200);
+        return new JsonResponse(
+            $user, 200
+        );
     }
 
     /**
@@ -66,19 +67,21 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return response()->json($user, 200);
+        return new JsonResponse(
+            $user, 200
+        );
     }
 
     /**
      * Remove the specified user from storage.
      *
      * @param User $user
-     * @return Application|ResponseFactory|\Illuminate\Foundation\Application|Response
+     * @return Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user): Response
     {
-        $user->delete();
-
-        return response(NULL,204);
+        return new Response(
+            $user->delete(),204
+        );
     }
 }

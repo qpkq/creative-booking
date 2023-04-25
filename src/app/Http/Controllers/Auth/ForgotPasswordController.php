@@ -14,7 +14,7 @@ class ForgotPasswordController extends Controller
      * Sends a notification with a link to reset user password.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse
     {
@@ -25,7 +25,7 @@ class ForgotPasswordController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-            ? response()->json(['message' => 'Письмо для сброса пароля отправлено'])
-            : response()->json(['message' => 'Не удалось отправить письмо'], 500);
+            ? new JsonResponse(['message' => 'Письмо для сброса пароля отправлено'])
+            : new JsonResponse(['message' => 'Не удалось отправить письмо'], 500);
     }
 }

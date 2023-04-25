@@ -18,7 +18,9 @@ class UserController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        return response()->json($request->user(), 200);
+        return new JsonResponse(
+            $request->user(), 200
+        );
     }
 
     /**
@@ -40,6 +42,8 @@ class UserController extends Controller
 
         $user->fill($data)->update();
 
-        return response()->json($user, 200);
+        return new JsonResponse(
+            $user, 200
+        );
     }
 }

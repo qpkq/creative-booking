@@ -14,7 +14,7 @@ class ResetPasswordController extends Controller
      * Resetting the current user password and set a new.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse
     {
@@ -34,7 +34,7 @@ class ResetPasswordController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? response()->json(['message' => 'Пароль успешно сброшен'])
-            : response()->json(['message' => 'Не удалось сбросить пароль'], 500);
+            ? new JsonResponse(['message' => 'Пароль успешно сброшен'])
+            : new JsonResponse(['message' => 'Не удалось сбросить пароль'], 500);
     }
 }
