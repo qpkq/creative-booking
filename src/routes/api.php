@@ -65,11 +65,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
              * Post routes.
              */
             Route::group(['prefix' => 'posts'], function () {
+
                 Route::get('/', [PostController::class, 'index'])->name('admin.post.index');
                 Route::post('/create', [PostController::class, 'store'])->name('admin.post.store');
+                Route::get('/deleted', [PostController::class, 'showDeletedPosts'])->name('admin.posts.deleted');
                 Route::get('/{post}', [PostController::class, 'show'])->name('admin.post.show');
                 Route::post('/{post}/update', [PostController::class, 'update'])->name('admin.post.update');
                 Route::get('/{post}/delete', [PostController::class, 'destroy'])->name('admin.post.destroy');
+                Route::post('/{id}/restore', [PostController::class, 'restore'])->name('admin.post.restore');
             });
         });
     });

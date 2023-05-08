@@ -100,12 +100,37 @@ class PostService
      * Remove the specified post from storage.
      *
      * @param Post $post
-     * @return null
+     * @return bool|null
      */
-    public function destroy(Post $post): null
+    public function destroy(Post $post): bool|null
     {
-        $post->delete();
+        return $post->delete();
+    }
 
-        return null;
+    /**
+     * Display a listing of the deleted posts.
+     *
+     * @return Collection
+     */
+    public function showDeletedPosts(): Collection
+    {
+        return Post::withTrashed()
+            ->onlyTrashed()
+            ->get();
+    }
+
+    /**
+     * Restoring deleted posts.
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function restore(int $id): mixed
+    {
+        Post::withTrashed()
+            ->where('id', $id)
+            ->restore();
+
+        return Post::findOrFail($id);
     }
 }

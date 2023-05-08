@@ -10,10 +10,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static firstOrCreate(mixed $data)
+ * @method static findOrFail(int $id)
  */
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
+    protected array $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +28,7 @@ class Post extends Model
         'content',
         'image',
         'category_id',
-        'deleted_at',
+//        'deleted_at',
     ];
 
     /**

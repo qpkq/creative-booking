@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Posts;
 use App\Http\Requests\Admin\Posts\StoreRequest;
 use App\Http\Requests\Admin\Posts\UpdateRequest;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class PostController extends BaseController
@@ -76,6 +77,33 @@ class PostController extends BaseController
             $this->service->destroy(
                 $post
             ), 204
+        );
+    }
+
+    /**
+     * Display a listing of the deleted posts.
+     *
+     * @return JsonResponse
+     */
+    public function showDeletedPosts(): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->showDeletedPosts()
+        );
+    }
+
+    /**
+     * Restoring deleted posts.
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function restore(int $id): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->restore(
+                $id
+            )
         );
     }
 }
