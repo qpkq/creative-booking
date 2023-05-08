@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Categories\CategoryController;
 use App\Http\Controllers\Admin\Posts\PostController;
 use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -65,7 +66,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
              * Post routes.
              */
             Route::group(['prefix' => 'posts'], function () {
-
                 Route::get('/', [PostController::class, 'index'])->name('admin.post.index');
                 Route::post('/create', [PostController::class, 'store'])->name('admin.post.store');
                 Route::get('/deleted', [PostController::class, 'showDeletedPosts'])->name('admin.posts.deleted');
@@ -73,6 +73,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
                 Route::post('/{post}/update', [PostController::class, 'update'])->name('admin.post.update');
                 Route::get('/{post}/delete', [PostController::class, 'destroy'])->name('admin.post.destroy');
                 Route::post('/{id}/restore', [PostController::class, 'restore'])->name('admin.post.restore');
+            });
+
+            /*
+             * Categories routes.
+             */
+            Route::group(['prefix' => 'categories'], function () {
+                Route::get('/', [CategoryController::class, 'index'])->name('admin.category.index');
+                Route::post('/create', [CategoryController::class, 'store'])->name('admin.category.store');
+                Route::get('/{category}', [CategoryController::class, 'show'])->name('admin.category.show');
+                Route::post('/{category}/update', [CategoryController::class, 'update'])->name('admin.category.update');
+                Route::post('/{category}/delete', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
             });
         });
     });

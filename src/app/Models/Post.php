@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @method static firstOrCreate(mixed $data)
  * @method static findOrFail(int $id)
+ * @method static where(string $string, mixed $id)
  */
 class Post extends Model
 {
@@ -28,7 +29,7 @@ class Post extends Model
         'content',
         'image',
         'category_id',
-//        'deleted_at',
+        'deleted_at',
     ];
 
     /**
@@ -38,7 +39,7 @@ class Post extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     /**

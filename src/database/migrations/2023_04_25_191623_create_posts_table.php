@@ -16,9 +16,13 @@ return new class extends Migration
             $table->string('title');
             $table->string('content');
             $table->string('image');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+//            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('category_id', 'post_category_idx');
+            $table->foreign('category_id', 'post_category_fk')->on('categories')->references('id');
         });
     }
 
