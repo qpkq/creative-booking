@@ -1,14 +1,8 @@
 # Creative Booking
 
-API интернет-магазина.
+API - Блог.
 
-Довольно упрощенный рабочий процесс Docker Compose, который настраивает сеть контейнеров для локальной разработки Laravel.
-
-## Использование
-
-Запуск контейнеров `docker-compose up -d --build app`.
-
-**Примечание**: имя хоста вашей базы данных MySQL должно быть `mysql`, **не** `localhost`. Имя пользователя и база данных должны быть «homestead» с паролем «secret».
+## Порты
 
 Созданы следующие компоненты с подробным описанием открытых портов:
 
@@ -18,7 +12,15 @@ API интернет-магазина.
 - **redis** - `:6379`
 - **mailpit** - `:8025`
 
-Примеры команд:
+## Запуск
 
+Запускаем докер-контейнеры из корневой папки проекта:
+
+- `docker-compose up -d --build app`
 - `docker-compose run --rm composer update`
+
+Теперь в папке src:
+
+- `cp .env.example .env`
+- `php artisan key:generate`
 - `docker-compose run --rm artisan migrate`
