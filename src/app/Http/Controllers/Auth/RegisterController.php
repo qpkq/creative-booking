@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        $token = $user->createToken('Bearer Token')->plainTextToken;
 
         $response = [
             'user' => $user,
