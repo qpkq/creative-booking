@@ -2,8 +2,11 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\Posts\SearchRequest;
+use App\Http\Requests\Admin\Posts\SortRequest;
 use App\Http\Requests\Admin\Posts\StoreRequest;
 use App\Http\Requests\Admin\Posts\UpdateRequest;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
@@ -132,5 +135,40 @@ class PostService
             ->restore();
 
         return Post::findOrFail($id);
+    }
+
+    /**
+     * Search post of the title.
+     *
+     * @param SearchRequest $request
+     * @return array
+     */
+    public function search(SearchRequest $request): array
+    {
+        $data = $request->validated();
+
+        $data = Post::with('category')
+            ->where('title', 'LIKE', '%' . $data['title'] . '%')
+            ->get();
+
+        return [
+            'posts' => $data,
+        ];
+    }
+
+    /**
+     * Sorting by fields.
+     *
+     * @param SortRequest $request
+     * @return LengthAwarePaginator
+     */
+    public function sort(SortRequest $request): LengthAwarePaginator
+    {
+        $sortField = $request->input('sort_field', 'created_at');
+        $sortDirection = $request->input('sort_direction', 'desc');
+
+        return Post::with('category')
+            ->orderBy($sortField, $sortDirection)
+            ->paginate(20);
     }
 }

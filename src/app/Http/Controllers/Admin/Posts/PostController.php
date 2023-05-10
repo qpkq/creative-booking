@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Posts;
 
+use App\Http\Requests\Admin\Posts\SearchRequest;
+use App\Http\Requests\Admin\Posts\SortRequest;
 use App\Http\Requests\Admin\Posts\StoreRequest;
 use App\Http\Requests\Admin\Posts\UpdateRequest;
 use App\Models\Post;
@@ -103,6 +105,36 @@ class PostController extends BaseController
         return new JsonResponse(
             $this->service->restore(
                 $id
+            )
+        );
+    }
+
+    /**
+     * Search post of the title.
+     *
+     * @param SearchRequest $request
+     * @return JsonResponse
+     */
+    public function search(SearchRequest $request): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->search(
+                $request
+            )
+        );
+    }
+
+    /**
+     * Sorting by fields.
+     *
+     * @param SortRequest $request
+     * @return JsonResponse
+     */
+    public function sort(SortRequest $request): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->sort(
+                $request
             )
         );
     }
