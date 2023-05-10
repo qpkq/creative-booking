@@ -4,3 +4,4 @@
 # Project exclude paths
 /src/storage/app/
 /src/storage/framework/
+/mysql/
