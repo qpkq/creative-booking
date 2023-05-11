@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\Users\SearchRequest;
 use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
@@ -71,5 +72,21 @@ class UserService
     public function destroy(User $user): bool|null
     {
         return $user->delete();
+    }
+
+    /**
+     * Search user by name.
+     *
+     * @param SearchRequest $request
+     * @return array
+     */
+    public function search(SearchRequest $request): array
+    {
+        $searchQuery = $request->input('name');
+
+        return [
+            'users' => User::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '%$searchQuery%'")
+                ->paginate(10)
+        ];
     }
 }

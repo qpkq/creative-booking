@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Http\Requests\Admin\Users\SearchRequest;
 use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Js;
 
 class UserController extends BaseController
 {
@@ -80,6 +82,21 @@ class UserController extends BaseController
             $this->service->destroy(
                 $user
             ),204
+        );
+    }
+
+    /**
+     * Search user by name.
+     *
+     * @param SearchRequest $request
+     * @return JsonResponse
+     */
+    public function search(SearchRequest $request): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->search(
+                $request
+            )
         );
     }
 }
