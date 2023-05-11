@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Posts;
+namespace App\Http\Requests\Admin\Users;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +23,7 @@ class SortRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sort_field'        => 'nullable|string|in:title,category_id,created_at',
+            'sort_field'        => 'nullable|string|in:first_name,last_name,role_id,created_at',
             'sort_direction'    => 'nullable|string|in:asc,desc',
         ];
     }

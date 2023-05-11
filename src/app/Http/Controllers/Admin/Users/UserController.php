@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Requests\Admin\Users\SearchRequest;
+use App\Http\Requests\Admin\Users\SortRequest;
 use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
@@ -76,9 +77,9 @@ class UserController extends BaseController
      * @param User $user
      * @return Response
      */
-    public function destroy(User $user): Response
+    public function destroy(User $user): JsonResponse
     {
-        return new Response(
+        return new JsonResponse(
             $this->service->destroy(
                 $user
             ),204
@@ -95,6 +96,21 @@ class UserController extends BaseController
     {
         return new JsonResponse(
             $this->service->search(
+                $request
+            )
+        );
+    }
+
+    /**
+     * Sort by fields.
+     *
+     * @param SortRequest $request
+     * @return JsonResponse
+     */
+    public function sort(SortRequest $request): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->sort(
                 $request
             )
         );

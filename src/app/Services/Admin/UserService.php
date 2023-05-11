@@ -3,9 +3,11 @@
 namespace App\Services\Admin;
 
 use App\Http\Requests\Admin\Users\SearchRequest;
+use App\Http\Requests\Admin\Users\SortRequest;
 use App\Http\Requests\Admin\Users\StoreRequest;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
@@ -86,7 +88,22 @@ class UserService
 
         return [
             'users' => User::whereRaw("CONCAT(first_name, ' ', last_name) LIKE '%$searchQuery%'")
-                ->paginate(10)
+                ->paginate(20)
         ];
+    }
+
+    /**
+     * Sort by fields.
+     *
+     * @param SortRequest $request
+     * @return mixed
+     */
+    public function sort(SortRequest $request): mixed
+    {
+        $sortField = $request->input('sort_field', 'created_at');
+        $sortDirection = $request->input('sort_direction', 'desc');
+
+        return User::orderBy($sortField, $sortDirection)
+            ->paginate(20);
     }
 }

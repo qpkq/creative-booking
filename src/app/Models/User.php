@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @method static whereRaw(string $string)
+ * @method static orderBy(mixed $sortField, mixed $sortDirection)
  */
 class User extends Authenticatable
 {

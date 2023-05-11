@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
                 Route::get('/{post}/delete', [PostController::class, 'destroy'])->name('admin.post.destroy');
                 Route::post('/{id}/restore', [PostController::class, 'restore'])->name('admin.post.restore');
                 Route::post('/search', [PostController::class, 'search'])->name('admin.post.search');
+                Route::post('/sort', [PostController::class, 'sort'])->name('admin.post.sort');
             });
 
             /*
