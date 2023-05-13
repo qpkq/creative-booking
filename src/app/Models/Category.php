@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static firstOrCreate(mixed $data)
  * @method static findOrFail(int $id)
  * @method static paginate(int $int)
+ * @method static where(string $string, string $string1, string $string2)
+ * @method static orderBy(mixed $sortField, mixed $sortDirection)
  */
 class Category extends Model
 {

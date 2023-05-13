@@ -2,6 +2,8 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\Categories\SearchRequest;
+use App\Http\Requests\Admin\Categories\SortRequest;
 use App\Http\Requests\Admin\Categories\StoreRequest;
 use App\Http\Requests\Admin\Categories\UpdateRequest;
 use App\Models\Category;
@@ -72,5 +74,38 @@ class CategoryService
             ->update(['category_id' => NULL]);
 
         return $category->delete();
+    }
+
+    /**
+     * Search categories of the title.
+     *
+     * @param SearchRequest $request
+     * @return array
+     */
+    public function search(SearchRequest $request): array
+    {
+        $data = $request->validated();
+
+        $data = Category::where('title', 'LIKE', '%' . $data['title'] . '%')
+            ->paginate(20);
+
+        return [
+            'categories' => $data,
+        ];
+    }
+
+    /**
+     * Sorting by fields.
+     *
+     * @param SortRequest $request
+     * @return mixed
+     */
+    public function sort(SortRequest $request): mixed
+    {
+        $sortField = $request->input('sort_field', 'created_at');
+        $sortDirection = $request->input('sort_direction', 'desc');
+
+        return Category::orderBy($sortField, $sortDirection)
+            ->paginate(20);
     }
 }

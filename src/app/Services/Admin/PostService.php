@@ -149,7 +149,7 @@ class PostService
 
         $data = Post::with('category')
             ->where('title', 'LIKE', '%' . $data['title'] . '%')
-            ->get();
+            ->paginate(20);
 
         return [
             'posts' => $data,

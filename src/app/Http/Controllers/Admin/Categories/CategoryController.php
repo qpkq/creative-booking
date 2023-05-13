@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Categories;
 
+use App\Http\Requests\Admin\Categories\SearchRequest;
+use App\Http\Requests\Admin\Categories\SortRequest;
 use App\Http\Requests\Admin\Categories\StoreRequest;
 use App\Http\Requests\Admin\Categories\UpdateRequest;
 use App\Models\Category;
@@ -78,6 +80,36 @@ class CategoryController extends BaseController
         return new JsonResponse(
             $this->service->destroy(
                 $category
+            )
+        );
+    }
+
+    /**
+     * Search categories of the title.
+     *
+     * @param SearchRequest $request
+     * @return JsonResponse
+     */
+    public function search(SearchRequest $request): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->search(
+                $request
+            )
+        );
+    }
+
+    /**
+     * Sorting by fields.
+     *
+     * @param SortRequest $request
+     * @return JsonResponse
+     */
+    public function sort(SortRequest $request): JsonResponse
+    {
+        return new JsonResponse(
+            $this->service->sort(
+                $request
             )
         );
     }

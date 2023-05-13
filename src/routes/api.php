@@ -88,6 +88,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
                 Route::get('/{category}', [CategoryController::class, 'show'])->name('admin.category.show');
                 Route::post('/{category}/update', [CategoryController::class, 'update'])->name('admin.category.update');
                 Route::post('/{category}/delete', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+                Route::post('/search', [CategoryController::class, 'search'])->name('admin.category.search');
+                Route::post('/sort', [CategoryController::class, 'sort'])->name('admin.category.sort');
             });
         });
     });
