@@ -19,7 +19,7 @@ class UserService
      */
     public function index(): array
     {
-        $users = User::all();
+        $users = User::paginate(20);
 
         return [
             'users' => $users

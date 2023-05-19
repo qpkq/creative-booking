@@ -21,7 +21,7 @@ class PostService
     public function index(): array
     {
         return [
-            'posts' => Post::with('category')->get(),
+            'posts' => Post::with('category')->paginate(20),
         ];
     }
 

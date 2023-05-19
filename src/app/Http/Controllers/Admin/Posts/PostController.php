@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\Posts\SortRequest;
 use App\Http\Requests\Admin\Posts\StoreRequest;
 use App\Http\Requests\Admin\Posts\UpdateRequest;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class PostController extends BaseController
@@ -72,8 +71,11 @@ class PostController extends BaseController
 
     /**
      * Remove the specified post from storage.
+     *
+     * @param Post $post
+     * @return JsonResponse
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post): JsonResponse
     {
         return new JsonResponse(
             $this->service->destroy(

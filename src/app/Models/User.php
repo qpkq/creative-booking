@@ -11,6 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @method static whereRaw(string $string)
  * @method static orderBy(mixed $sortField, mixed $sortDirection)
+ * @method static paginate(int $int)
+ * @method static firstOrCreate(mixed $data)
  */
 class User extends Authenticatable
 {

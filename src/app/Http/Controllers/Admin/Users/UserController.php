@@ -9,7 +9,6 @@ use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Js;
 
 class UserController extends BaseController
 {
