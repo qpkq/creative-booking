@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     /*
-     * Profile routes.
+     * Auth routes.
      */
     include(__DIR__ .'/auth/web.php');
 
