@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
-| Admin Panel API version 1
+| Admin Panel API
 |--------------------------------------------------------------------------
 */
 
