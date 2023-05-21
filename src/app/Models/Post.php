@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static firstOrCreate(mixed $data)
  * @method static findOrFail(int $id)
  * @method static where(string $string, mixed $id)
+ * @method static count()
  */
 class Post extends Model
 {

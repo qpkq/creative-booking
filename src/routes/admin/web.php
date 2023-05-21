@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Categories\CategoryController;
 use App\Http\Controllers\Admin\Posts\PostController;
@@ -13,6 +14,13 @@ use App\Http\Controllers\Admin\Users\UserController as AdminUserController;
 
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::group(['prefix' => 'v1'], function () {
+
+        /*
+         * Dashboard
+         */
+        Route::group(['prefix' => 'dashboard'], function () {
+            Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+        });
 
         /*
          * Users routes.

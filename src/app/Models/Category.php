@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate(int $int)
  * @method static where(string $string, string $string1, string $string2)
  * @method static orderBy(mixed $sortField, mixed $sortDirection)
+ * @method static count()
  */
 class Category extends Model
 {

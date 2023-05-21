@@ -14,6 +14,10 @@ use App\Http\Controllers\Auth\SendVerificationNotificationController;
 */
 
 Route::prefix('auth')->group(function () {
+
+    /*
+     * Auth routes.
+     */
     Route::post('/verify-email/send', SendVerificationNotificationController::class)->name('verification.send');
     Route::get('/verify-email/{id}/{hash}', VerificationController::class)->name('verification.verify');
     Route::post('/forgot-password/send', ForgotPasswordController::class)->name('password.send');

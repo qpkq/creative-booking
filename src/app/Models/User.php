@@ -13,6 +13,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static orderBy(mixed $sortField, mixed $sortDirection)
  * @method static paginate(int $int)
  * @method static firstOrCreate(mixed $data)
+ * @method static count()
+ * @method static where(string $string, string $string1, \Carbon\Carbon $weekAgo)
  */
 class User extends Authenticatable
 {
